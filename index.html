@@ -1,106 +1,834 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Basic -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Free Market Education – Start Today</title>
-  <meta name="description" content="100% free stock market education. Learn chart reading, technical analysis, and risk management. No buy/sell tips. For learning purpose only.">
-  <link rel="canonical" href="https://example.com/">
-
-  <!-- Performance -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trade With Munaaf // VIP Market Intelligence Terminal</title>
+  
+  <!-- FontAwesome & Google Fonts -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1110058778398308');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1110058778398308&ev=PageView&noscript=1"/>
+  </noscript>
+  <!-- End Meta Pixel Code -->
 
-  <!-- Favicons (optional) -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              gold: '#ffb703',
+              orange: '#fb8500',
+              cyan: '#00f5d4',
+              neonBlue: '#38bdf8',
+              darkBg: '#030712',
+              card: 'rgba(11, 17, 32, 0.85)',
+              border: 'rgba(51, 65, 85, 0.6)',
+              red: '#ff334b',
+              green: '#10b981'
+            }
+          },
+          fontFamily: {
+            mono: ['"JetBrains Mono"', 'monospace'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif']
+          },
+          animation: {
+            'pulse-fast': 'pulse 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'radar': 'radar 3s linear infinite',
+            'shimmer': 'shimmer 2.2s infinite'
+          },
+          keyframes: {
+            radar: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' }
+            },
+            shimmer: {
+              '100%': { transform: 'translateX(100%)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Free Market Education – Start Today">
-  <meta property="og:description" content="Learn charts & risk management. No buy/sell tips. 100% educational.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://example.com/">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?q=80&w=1600&auto=format&fit=crop">
-
-  <!-- Minimal CSS (inline for speed) -->
   <style>
-    :root{
-      --bg1:#0c0c1d;
-      --bg2:#1a1a2b;
-      --brand: #00f0ff;
-      --brand-2:#00f0ff;
-      --text:#ffffff;
-      --muted:#b5b5c3;
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-    body{
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
-      background:
-        linear-gradient(135deg, rgba(0,0,0,.45), rgba(0,0,0,.45)),
-        url('https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?q=80&w=1600&auto=format&fit=crop') no-repeat center/cover fixed;
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-      min-height:100vh;
+    
+    body {
+      background-color: #030712;
+      color: #e2e8f0;
+      font-family: 'JetBrains Mono', monospace;
+      overflow-x: hidden;
     }
-    .container{
-      max-width:520px; margin:0 auto; padding:24px 18px; text-align:center; min-height:100vh; display:flex; flex-direction:column; justify-content:center;
-      backdrop-filter: saturate(130%);
+
+    /* Ambient Matrix and Grid */
+    #matrix-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.22;
     }
-    .badge{display:inline-block; font-size:.78rem; padding:6px 10px; border:1px solid #2a2a3a; border-radius:999px; color:#d6eaff; background:rgba(0,240,255,.08); margin-bottom:14px}
-    h1{font-size:1.9rem; line-height:1.2; margin:6px 0 10px; background:linear-gradient(90deg,var(--brand-2),var(--brand)); -webkit-background-clip:text; background-clip:text; color:transparent;}
-    .sub{font-size:1rem; color:var(--muted); margin:0 auto 16px; max-width:36ch}
-    .pill{
-      display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:rgba(0,255,153,.07); border:1px dashed rgba(0,255,153,.35); color:#d8ffe9; font-size:.9rem; margin:6px 0 18px;
+
+    .bg-grid-pattern {
+      background-size: 28px 28px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 183, 3, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
     }
-    ul.bullets{list-style:none; padding:0; margin:0 0 18px}
-    ul.bullets li{margin:8px 0; color:#e9eef9}
-    .cta{
-      display:inline-block; text-decoration:none; background:var(--brand); color:#041b14; padding:14px 18px; font-weight:700; border-radius:12px; box-shadow:0 0 0 0 rgba(0,255,153,.6); transform:translateZ(0);
-      transition:transform .15s ease;
-      animation:pulse 1.6s infinite;
+
+    /* Glows */
+    .glow-amber-box {
+      box-shadow: 0 0 40px -8px rgba(255, 183, 3, 0.35), inset 0 0 20px -8px rgba(255, 183, 3, 0.15);
     }
-    .cta:active{transform:scale(.98)}
-    @keyframes pulse{
-      0%{box-shadow:0 0 0 0 rgba(0,255,153,.55)}
-      70%{box-shadow:0 0 0 20px rgba(0,255,153,0)}
-      100%{box-shadow:0 0 0 0 rgba(0,255,153,0)}
+
+    .glow-cyan-box {
+      box-shadow: 0 0 35px -8px rgba(0, 245, 212, 0.3);
     }
-    .fineprint{font-size:.86rem; color:var(--muted); margin:18px auto 0; max-width:44ch}
-    .disclaimer{font-size:.78rem; color:#9aa4b2; margin:18px auto 0; max-width:50ch}
-    .safe{display:flex; align-items:center; justify-content:center; gap:8px; margin-top:14px; color:#a1ffd6; font-size:.9rem}
-    .shield{width:18px; height:18px; display:inline-block; border-radius:4px; background:linear-gradient(135deg,#0df,#0f9)}
-    footer{opacity:.8; margin-top:22px; font-size:.78rem; color:#9aa4b2}
+
+    .text-glow-amber {
+      text-shadow: 0 0 12px rgba(255, 183, 3, 0.6);
+    }
+
+    .text-glow-cyan {
+      text-shadow: 0 0 12px rgba(0, 245, 212, 0.6);
+    }
+
+    /* Ticker */
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: ticker 28s linear infinite;
+    }
+
+    .ticker-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Light Sheen Sweep Effect on CTA */
+    .cta-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 70%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+      transform: skewX(-25deg);
+      animation: ctaSheen 3.2s infinite;
+    }
+
+    @keyframes ctaSheen {
+      0% { left: -100%; }
+      35% { left: 140%; }
+      100% { left: 140%; }
+    }
+
+    /* Interactive Candlestick Animation */
+    .candle {
+      position: relative;
+      transform-origin: bottom;
+      transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .candle::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      background: currentColor;
+    }
+
+    .wick-green::before { top: -9px; bottom: -9px; }
+    .wick-red::before { top: -7px; bottom: -7px; }
+
+    /* SVG Circular Timer animation */
+    .progress-ring__circle {
+      transition: stroke-dashoffset 0.1s linear;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+
+    /* Custom Scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #090e1a;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #ffb703;
+      border-radius: 4px;
+    }
   </style>
 </head>
-<body>
-  <main class="container">
-    <span class="badge">100% Educational • Policy Safe</span>
-    <h1>Free Market Education – Start Today</h1>
-    <p class="sub">Learn index behaviour & risk management</p>
+<body class="min-h-screen bg-grid-pattern flex flex-col justify-between items-center relative selection:bg-amber-400 selection:text-black">
 
-    <div class="pill">🚫 No Buy/Sell Tips • ✅ For Learning Purpose Only</div>
+  <!-- Background Data Streams Canvas -->
+  <canvas id="matrix-canvas"></canvas>
 
-    <ul class="bullets" aria-label="What you'll learn">
-      <li>• Chart basics & risk rules (no return promises)</li>
-      <li>• How to read trends without speculation</li>
-      <li>• Market discipline & common mistakes</li>
-    </ul>
+  <!-- 1. LIVE MARKET TICKER HEADER -->
+  <header class="w-full bg-slate-950/95 backdrop-blur-md border-b border-slate-800/90 overflow-hidden py-2.5 relative z-30 shadow-md">
+    <div class="flex items-center">
+      <div class="px-3 bg-amber-500/10 text-amber-400 text-[10px] font-bold border-r border-slate-800 flex items-center gap-1.5 shrink-0 uppercase tracking-widest">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <span>LIVE FEED</span>
+      </div>
+      <div class="ticker-wrap flex overflow-hidden w-full">
+        <div class="ticker-track text-[11px] font-mono tracking-wide" id="tickerTrack">
+          <!-- Ticker items dynamically cloned via JS for seamless flow -->
+        </div>
+      </div>
+    </div>
+  </header>
 
-    <!-- CTA goes to a page-specific bridge -->
-    <a class="cta" href="bridge-lp86.html" rel="nofollow">Start Learning</a>
+  <!-- 2. PROMINENT 15s COUNTDOWN AUTO-REDIRECT BAR -->
+  <div class="w-full max-w-md px-4 mt-3 z-20">
+    <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border border-amber-500/40 rounded-xl p-3 shadow-lg glow-amber-box relative overflow-hidden">
+      <!-- Glow background line -->
+      <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-amber-500 via-cyan-400 to-amber-500"></div>
 
-    <div class="safe"><span class="shield" aria-hidden="true"></span> Ad Policy Friendly Content</div>
+      <div class="flex items-center justify-between gap-3">
+        <!-- SVG Circular Countdown -->
+        <div class="relative flex items-center justify-center shrink-0">
+          <svg class="w-12 h-12" viewBox="0 0 48 48">
+            <circle class="text-slate-800" stroke-width="4" stroke="currentColor" fill="transparent" r="20" cx="24" cy="24"/>
+            <circle id="timerRing" class="text-amber-400 progress-ring__circle" stroke-width="4" stroke-dasharray="125.66" stroke-dashoffset="0" stroke-linecap="round" stroke="currentColor" fill="transparent" r="20" cx="24" cy="24"/>
+          </svg>
+          <div class="absolute font-mono font-extrabold text-sm text-white" id="timerCount">15</div>
+        </div>
 
-    <p class="fineprint">We focus on concepts & frameworks suitable for beginners.</p>
-    <p class="disclaimer"><em>This website is for educational purposes only. We do not provide investment, trading, or financial advice.</em></p>
+        <!-- Info & Controls -->
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-1.5 text-[11px] font-bold text-amber-400 uppercase tracking-wider">
+            <i class="fa-solid fa-bolt-lightning text-xs animate-bounce text-yellow-400"></i>
+            <span>AUTO TELEGRAM ACCESS</span>
+          </div>
+          <p class="text-[10px] text-slate-300 truncate" id="timerStatusText">
+            Redirecting to Free VIP Channel in <span class="text-amber-300 font-bold" id="timerTextSeconds">15s</span>...
+          </p>
+          <div class="w-full bg-slate-800 rounded-full h-1.5 mt-1.5 overflow-hidden">
+            <div id="linearProgress" class="bg-gradient-to-r from-amber-400 to-emerald-400 h-full rounded-full transition-all duration-100 ease-linear" style="width: 100%;"></div>
+          </div>
+        </div>
 
-    <footer>© <span id="y"></span> Market Basics Learning Hub</footer>
+        <!-- Action / Pause Button -->
+        <div class="flex flex-col gap-1 shrink-0">
+          <button id="toggleTimerBtn" onclick="toggleTimer()" class="text-[9px] font-mono px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 flex items-center gap-1 transition-all">
+            <i id="toggleTimerIcon" class="fa-solid fa-pause text-[8px]"></i>
+            <span id="toggleTimerLabel">PAUSE</span>
+          </button>
+          <button onclick="cancelTimer()" class="text-[9px] font-mono px-2 py-0.5 text-slate-400 hover:text-red-400 transition-colors">
+            CANCEL
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. MAIN TERMINAL CARD -->
+  <main class="w-full max-w-md px-4 py-4 my-auto relative z-20">
+    <div class="bg-slate-900/90 backdrop-blur-2xl border border-slate-800 rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 hover:border-amber-500/50 relative">
+
+      <!-- Corner Cyber Accents -->
+      <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-amber-400 pointer-events-none rounded-tl-2xl"></div>
+      <div class="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-cyan-400 pointer-events-none rounded-tr-2xl"></div>
+
+      <!-- Terminal Top Bar -->
+      <div class="bg-slate-950/95 px-5 py-3 border-b border-slate-800/90 flex items-center justify-between text-xs text-slate-400 font-mono">
+        <div class="flex items-center gap-2">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+          </span>
+          <span class="text-slate-100 font-bold tracking-wider">TERMINAL // v4.2 PRO</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700/60">
+            <i class="fa-solid fa-shield-halved text-amber-400 mr-1"></i>VERIFIED
+          </span>
+          <div class="flex items-center gap-1">
+            <span class="w-2.5 h-2.5 rounded-full bg-slate-700"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Profile & Value Proposition -->
+      <div class="p-6 text-center relative overflow-hidden">
+        <!-- Radial ambient glow -->
+        <div class="absolute -top-16 left-1/2 -translate-x-1/2 w-56 h-56 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Master Avatar / Radar Graphic -->
+        <div class="relative inline-block mb-3.5">
+          <div class="w-24 h-24 rounded-2xl bg-gradient-to-tr from-amber-500 via-yellow-400 to-cyan-400 p-[2px] shadow-xl shadow-amber-500/20 relative">
+            <div class="w-full h-full bg-slate-950 rounded-[14px] flex flex-col items-center justify-center overflow-hidden relative">
+              <i class="fa-solid fa-chart-line text-4xl text-transparent bg-clip-text bg-gradient-to-tr from-amber-400 to-amber-200"></i>
+              <!-- Subtitle badge -->
+              <span class="text-[8px] font-mono text-cyan-400 tracking-widest mt-1">QUANT_AI</span>
+            </div>
+          </div>
+          <span class="absolute -bottom-2 -right-2 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded-md border-2 border-slate-950 shadow flex items-center gap-1">
+            <i class="fa-solid fa-badge-check"></i> VIP
+          </span>
+        </div>
+
+        <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-white uppercase font-sans mb-1 text-glow-amber">
+          TRADE WITH MUNAAF
+        </h1>
+        <p class="text-[11px] text-amber-400 font-mono tracking-widest uppercase mb-4 flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-crosshairs text-[10px]"></i>
+          <span>PRECISION MARKET INTELLIGENCE</span>
+        </p>
+
+        <!-- Feature Pills -->
+        <div class="flex flex-wrap justify-center gap-1.5 text-[10px] font-semibold mb-5">
+          <span class="bg-amber-500/10 text-amber-300 border border-amber-500/30 px-2.5 py-1 rounded-lg flex items-center gap-1">
+            <i class="fa-solid fa-crown text-[9px] text-amber-400"></i> VIP CALLS
+          </span>
+          <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2.5 py-1 rounded-lg flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span> 98.2% ACCURACY
+          </span>
+          <span class="bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 px-2.5 py-1 rounded-lg flex items-center gap-1">
+            <i class="fa-solid fa-users text-[9px] text-cyan-400"></i> 100K+ TRADERS
+          </span>
+        </div>
+
+        <!-- HIGH-IMPACT CTA BUTTON -->
+        <div class="w-full relative">
+          <a href="https://t.me/+9QIItGB4iAJjMmE9" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             onclick="trackTelegramLead('Hero CTA Click')" 
+             class="cta-btn group relative w-full overflow-hidden bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-sans font-black text-sm uppercase py-4 px-6 rounded-2xl shadow-xl shadow-amber-500/30 flex items-center justify-center gap-3 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-amber-500/50 active:translate-y-0 active:scale-[0.99]">
+            <i class="fa-brands fa-telegram text-2xl transition-transform group-hover:scale-125 text-slate-950"></i>
+            <span class="tracking-wide">JOIN FREE VIP TELEGRAM</span>
+            <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1.5 transition-transform"></i>
+          </a>
+          <p class="text-[10px] text-slate-400 font-mono mt-2 flex items-center justify-center gap-1">
+            <i class="fa-solid fa-lock text-[9px] text-emerald-400"></i> 100% Free Lifetime Community • Zero Hidden Fees
+          </p>
+        </div>
+      </div>
+
+      <!-- Key Performance Metrics Grid -->
+      <div class="grid grid-cols-3 border-y border-slate-800/80 bg-slate-950/70 text-center py-3.5 px-3">
+        <div class="px-1 border-r border-slate-800/80">
+          <div class="text-lg font-black text-amber-400 font-sans tracking-tight">98.2%</div>
+          <div class="text-[9px] text-slate-400 font-mono uppercase mt-0.5">HISTORIC ACCURACY</div>
+        </div>
+        <div class="px-1 border-r border-slate-800/80">
+          <div class="text-lg font-black text-white font-sans tracking-tight">100K+</div>
+          <div class="text-[9px] text-slate-400 font-mono uppercase mt-0.5">ACTIVE MEMBERS</div>
+        </div>
+        <div class="px-1">
+          <div class="text-lg font-black text-emerald-400 font-sans tracking-tight">24/7</div>
+          <div class="text-[9px] text-slate-400 font-mono uppercase mt-0.5">DATA & SIGNALS</div>
+        </div>
+      </div>
+
+      <!-- Interactive Candlestick Visualizer -->
+      <div class="p-4 border-b border-slate-800/80 bg-slate-950/40">
+        <div class="flex justify-between items-center text-[10px] text-slate-400 font-mono mb-2.5">
+          <span class="flex items-center gap-1.5 text-cyan-300">
+            <i class="fa-solid fa-wave-square text-xs"></i>
+            NIFTY 50 LIVE INTRADAY MATRIX
+          </span>
+          <span class="text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
+            ▲ +1.38% BREAKOUT
+          </span>
+        </div>
+
+        <!-- Candlesticks Container -->
+        <div class="h-20 flex items-end justify-between px-3 pt-3 pb-2 bg-slate-950/90 rounded-xl border border-slate-800/80 relative overflow-hidden" id="candlestickChart">
+          <!-- Price Target Reference Line -->
+          <div class="absolute top-5 left-0 right-0 border-b border-dashed border-amber-500/30 flex justify-between px-2">
+            <span class="text-[8px] text-amber-400/80 font-mono">TARGET 2: 22,650</span>
+            <span class="text-[8px] text-emerald-400 font-mono">BUY ZONE ACTIVE</span>
+          </div>
+
+          <!-- Dynamic Candlesticks -->
+          <div class="candle wick-red text-red-500 bg-red-500/90 w-2.5 rounded-xs" style="height: 38px;"></div>
+          <div class="candle wick-green text-emerald-400 bg-emerald-400/90 w-2.5 rounded-xs" style="height: 52px;"></div>
+          <div class="candle wick-green text-emerald-400 bg-emerald-400/90 w-2.5 rounded-xs" style="height: 34px;"></div>
+          <div class="candle wick-red text-red-500 bg-red-500/90 w-2.5 rounded-xs" style="height: 42px;"></div>
+          <div class="candle wick-green text-emerald-400 bg-emerald-400/90 w-2.5 rounded-xs" style="height: 58px;"></div>
+          <div class="candle wick-green text-emerald-400 bg-emerald-400/90 w-2.5 rounded-xs" style="height: 64px;"></div>
+          <div class="candle wick-red text-red-500 bg-red-500/90 w-2.5 rounded-xs" style="height: 28px;"></div>
+          <div class="candle wick-green text-emerald-400 bg-emerald-400/90 w-2.5 rounded-xs" style="height: 60px;"></div>
+          <div class="candle wick-green text-emerald-400 bg-emerald-400/90 w-2.5 rounded-xs" style="height: 70px;"></div>
+        </div>
+      </div>
+
+      <!-- Feature Highlight Modules -->
+      <div class="p-4 space-y-2.5 bg-slate-900/40">
+        <!-- Card 1 -->
+        <a href="https://t.me/+9QIItGB4iAJjMmE9" 
+           target="_blank" 
+           rel="noopener noreferrer"
+           onclick="trackTelegramLead('Feature Card 1')"
+           class="group flex items-center justify-between p-3.5 bg-slate-950/70 hover:bg-slate-800/80 border border-slate-800/90 hover:border-amber-500/50 rounded-2xl transition-all duration-200">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-chart-pie text-base"></i>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold text-white font-sans flex items-center gap-1.5">
+                Nifty & BankNifty Key Levels
+                <span class="text-[9px] bg-amber-500/20 text-amber-300 px-1.5 py-0.2 rounded font-mono">DAILY</span>
+              </h4>
+              <p class="text-[10px] text-slate-400 font-mono mt-0.5">Accurate breakout & rejection zones</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-chevron-right text-xs text-slate-500 group-hover:text-amber-400 group-hover:translate-x-1 transition-all"></i>
+        </a>
+
+        <!-- Card 2 -->
+        <a href="https://t.me/+9QIItGB4iAJjMmE9" 
+           target="_blank" 
+           rel="noopener noreferrer"
+           onclick="trackTelegramLead('Feature Card 2')"
+           class="group flex items-center justify-between p-3.5 bg-slate-950/70 hover:bg-slate-800/80 border border-slate-800/90 hover:border-emerald-500/50 rounded-2xl transition-all duration-200">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-bolt-lightning text-base"></i>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold text-white font-sans flex items-center gap-1.5">
+                Real-Time Trade Alerts
+                <span class="text-[9px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.2 rounded font-mono">LIVE</span>
+              </h4>
+              <p class="text-[10px] text-slate-400 font-mono mt-0.5">Instant Entry, SL & Multiple Targets</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-chevron-right text-xs text-slate-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all"></i>
+        </a>
+
+        <!-- Card 3 -->
+        <a href="https://t.me/+9QIItGB4iAJjMmE9" 
+           target="_blank" 
+           rel="noopener noreferrer"
+           onclick="trackTelegramLead('Feature Card 3')"
+           class="group flex items-center justify-between p-3.5 bg-slate-950/70 hover:bg-slate-800/80 border border-slate-800/90 hover:border-cyan-500/50 rounded-2xl transition-all duration-200">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-brain text-base"></i>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold text-white font-sans flex items-center gap-1.5">
+                Zero-Loss Risk Framework
+                <span class="text-[9px] bg-cyan-500/20 text-cyan-300 px-1.5 py-0.2 rounded font-mono">PRO</span>
+              </h4>
+              <p class="text-[10px] text-slate-400 font-mono mt-0.5">Position sizing & capital preservation</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-chevron-right text-xs text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all"></i>
+        </a>
+      </div>
+
+      <!-- Secondary Quick CTA Button -->
+      <div class="px-4 py-3 bg-slate-950/80 border-t border-slate-800/90">
+        <a href="https://t.me/+9QIItGB4iAJjMmE9" 
+           target="_blank" 
+           rel="noopener noreferrer"
+           onclick="trackTelegramLead('Bottom Quick CTA')"
+           class="w-full bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-amber-400 border border-amber-500/30 font-mono text-xs font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all">
+          <i class="fa-solid fa-satellite-dish animate-pulse"></i>
+          <span>UNLOCK FREE VIP ACCESS NOW</span>
+          <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+        </a>
+      </div>
+
+      <!-- Terminal Footer Nav Links -->
+      <div class="px-4 py-3 bg-slate-950 border-t border-slate-800/80">
+        <div class="flex flex-wrap justify-center items-center gap-x-4 gap-y-1 text-[11px] text-amber-400/90 font-mono">
+          <button onclick="openModal('about')" class="hover:underline hover:text-white transition-colors">[ABOUT]</button>
+          <button onclick="openModal('terms')" class="hover:underline hover:text-white transition-colors">[TERMS]</button>
+          <button onclick="openModal('disclaimer')" class="hover:underline hover:text-white transition-colors">[DISCLAIMER]</button>
+          <button onclick="openModal('contact')" class="hover:underline hover:text-white transition-colors">[CONTACT]</button>
+        </div>
+        <div class="flex flex-col sm:flex-row justify-between items-center text-[9px] text-slate-500 mt-2.5 font-mono gap-1 text-center">
+          <span>FOR EDUCATIONAL & ANALYTICAL PURPOSES ONLY</span>
+          <span class="text-slate-400">DEV PROTOCOL // D.A.E.</span>
+        </div>
+      </div>
+
+    </div>
   </main>
 
+  <!-- MODAL POPUP DIALOG -->
+  <div id="modalOverlay" onclick="closeModalOnOuterClick(event)" 
+       class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 opacity-0 pointer-events-none transition-all duration-300 flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-amber-500/50 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl transform scale-95 transition-all duration-300" id="modalBox">
+      <!-- Modal Header -->
+      <div class="bg-slate-950 px-5 py-3.5 border-b border-slate-800 flex justify-between items-center">
+        <span id="modalTitle" class="text-xs font-bold font-mono text-amber-400 tracking-wide">// INFORMATION</span>
+        <button onclick="closeModal()" class="text-slate-400 hover:text-red-400 transition-colors p-1" aria-label="Close modal">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <!-- Modal Body -->
+      <div id="modalBody" class="p-5 text-xs text-slate-300 leading-relaxed max-h-[65vh] overflow-y-auto custom-scrollbar font-mono">
+        <!-- Content inserted dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT CONTROLLERS -->
   <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
+    const TELEGRAM_URL = "https://t.me/+9QIItGB4iAJjMmE9";
+
+    /* ----------------------------------------------------
+       1. META PIXEL TRACKING HELPER
+       ---------------------------------------------------- */
+    function trackTelegramLead(origin) {
+      try {
+        if (typeof fbq === 'function') {
+          fbq('track', 'Lead', {
+            content_name: 'Telegram VIP Subscription',
+            content_category: 'Stock Market Advisory',
+            source: origin
+          });
+        }
+      } catch (e) {
+        console.warn('Pixel tracking error:', e);
+      }
+    }
+
+    /* ----------------------------------------------------
+       2. COUNTDOWN & AUTO-REDIRECT ENGINE (15 SECONDS)
+       ---------------------------------------------------- */
+    const TOTAL_SECONDS = 15;
+    let remainingSeconds = TOTAL_SECONDS;
+    let isPaused = false;
+    let isCancelled = false;
+    let countdownInterval = null;
+
+    const timerRing = document.getElementById('timerRing');
+    const timerCount = document.getElementById('timerCount');
+    const timerTextSeconds = document.getElementById('timerTextSeconds');
+    const linearProgress = document.getElementById('linearProgress');
+    const toggleTimerBtn = document.getElementById('toggleTimerBtn');
+    const toggleTimerIcon = document.getElementById('toggleTimerIcon');
+    const toggleTimerLabel = document.getElementById('toggleTimerLabel');
+    const timerStatusText = document.getElementById('timerStatusText');
+
+    const RING_CIRCUMFERENCE = 2 * Math.PI * 20; // ~125.66
+
+    function updateProgressUI() {
+      if (timerCount) timerCount.textContent = Math.ceil(remainingSeconds);
+      if (timerTextSeconds) timerTextSeconds.textContent = `${Math.ceil(remainingSeconds)}s`;
+      
+      const percent = (remainingSeconds / TOTAL_SECONDS);
+      const offset = RING_CIRCUMFERENCE - (percent * RING_CIRCUMFERENCE);
+      if (timerRing) timerRing.style.strokeDashoffset = offset;
+      if (linearProgress) linearProgress.style.width = `${percent * 100}%`;
+    }
+
+    function startCountdown() {
+      updateProgressUI();
+      const step = 0.1; // update every 100ms for ultra-smooth ring animation
+      countdownInterval = setInterval(() => {
+        if (!isPaused && !isCancelled) {
+          remainingSeconds -= step;
+          if (remainingSeconds <= 0) {
+            remainingSeconds = 0;
+            updateProgressUI();
+            clearInterval(countdownInterval);
+            executeAutoRedirect();
+          } else {
+            updateProgressUI();
+          }
+        }
+      }, 100);
+    }
+
+    function toggleTimer() {
+      if (isCancelled) return;
+      isPaused = !isPaused;
+      if (isPaused) {
+        toggleTimerIcon.className = "fa-solid fa-play text-[8px]";
+        toggleTimerLabel.textContent = "RESUME";
+        timerStatusText.innerHTML = `<span class="text-yellow-400 font-bold">Auto-redirect PAUSED</span>`;
+      } else {
+        toggleTimerIcon.className = "fa-solid fa-pause text-[8px]";
+        toggleTimerLabel.textContent = "PAUSE";
+        timerStatusText.innerHTML = `Redirecting to Free VIP Channel in <span class="text-amber-300 font-bold">${Math.ceil(remainingSeconds)}s</span>...`;
+      }
+    }
+
+    function cancelTimer() {
+      isCancelled = true;
+      clearInterval(countdownInterval);
+      if (timerRing) timerRing.style.strokeDashoffset = RING_CIRCUMFERENCE;
+      if (linearProgress) linearProgress.style.width = '0%';
+      timerStatusText.innerHTML = `<span class="text-red-400 font-bold">Auto-redirect cancelled</span>. Browse freely!`;
+      toggleTimerBtn.style.display = 'none';
+      if (timerCount) timerCount.innerHTML = `<i class="fa-solid fa-hand text-xs text-red-400"></i>`;
+    }
+
+    function executeAutoRedirect() {
+      timerStatusText.innerHTML = `<span class="text-emerald-400 font-bold flex items-center gap-1"><i class="fa-solid fa-spinner animate-spin"></i> Connecting to Telegram VIP...</span>`;
+      trackTelegramLead('Auto-Redirect 15s Completed');
+      setTimeout(() => {
+        window.location.href = TELEGRAM_URL;
+      }, 400);
+    }
+
+    /* ----------------------------------------------------
+       3. LIVE TICKER DATA GENERATOR
+       ---------------------------------------------------- */
+    const tickerStocks = [
+      { name: 'NIFTY 50', price: '22,548.80', change: '+1.38%', up: true },
+      { name: 'BANKNIFTY', price: '48,970.25', change: '+1.42%', up: true },
+      { name: 'FINNIFTY', price: '21,830.40', change: '+1.15%', up: true },
+      { name: 'SENSEX', price: '74,280.15', change: '+1.02%', up: true },
+      { name: 'RELIANCE', price: '2,924.50', change: '+0.85%', up: true },
+      { name: 'HDFCBANK', price: '1,698.10', change: '+2.45%', up: true },
+      { name: 'TCS', price: '4,162.00', change: '+1.10%', up: true },
+      { name: 'INFY', price: '1,875.40', change: '-0.30%', up: false },
+      { name: 'TATAMOTORS', price: '992.60', change: '+3.45%', up: true },
+      { name: 'ICICIBANK', price: '1,120.30', change: '+1.75%', up: true }
+    ];
+
+    function renderTicker() {
+      const container = document.getElementById('tickerTrack');
+      if (!container) return;
+      
+      const renderItems = (items) => items.map(s => `
+        <div class="flex items-center space-x-6 pr-6">
+          <span class="flex items-center gap-1.5 whitespace-nowrap">
+            <span class="text-slate-300 font-bold">${s.name}</span>
+            <span class="${s.up ? 'text-emerald-400' : 'text-red-400'} font-semibold">${s.price} (${s.change})</span>
+            <i class="fa-solid ${s.up ? 'fa-arrow-trend-up text-emerald-400' : 'fa-arrow-trend-down text-red-400'} text-[9px]"></i>
+          </span>
+        </div>
+      `).join('');
+
+      // Repeat twice for seamless CSS loop
+      container.innerHTML = renderItems(tickerStocks) + renderItems(tickerStocks);
+    }
+
+    /* ----------------------------------------------------
+       4. MATRIX DATA STREAMS CANVAS
+       ---------------------------------------------------- */
+    function initMatrix() {
+      const canvas = document.getElementById('matrix-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      const chars = '0123456789+-%▲▼NIFTYBANKRSIBUYSELLPROFIT';
+      const fontSize = 13;
+      const columns = Math.floor(width / fontSize);
+      const drops = Array(columns).fill(1);
+
+      function draw() {
+        ctx.fillStyle = 'rgba(3, 7, 18, 0.09)';
+        ctx.fillRect(0, 0, width, height);
+
+        ctx.fillStyle = 'rgba(255, 183, 3, 0.45)';
+        ctx.font = `${fontSize}px "JetBrains Mono"`;
+
+        for (let i = 0; i < drops.length; i++) {
+          const text = chars[Math.floor(Math.random() * chars.length)];
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+          if (drops[i] * fontSize > height && Math.random() > 0.985) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    /* ----------------------------------------------------
+       5. CANDLESTICK FLUCTUATION EFFECT
+       ---------------------------------------------------- */
+    function animateCandlesticks() {
+      const candles = document.querySelectorAll('#candlestickChart .candle');
+      setInterval(() => {
+        const randomIndex = Math.floor(Math.random() * candles.length);
+        const candle = candles[randomIndex];
+        if (candle) {
+          const randomHeight = Math.floor(Math.random() * 45) + 25;
+          candle.style.height = `${randomHeight}px`;
+        }
+      }, 1400);
+    }
+
+    /* ----------------------------------------------------
+       6. MODAL DATA & CONTROLLERS
+       ---------------------------------------------------- */
+    const modalData = {
+      about: {
+        title: "// ABOUT TRADE WITH MUNAAF",
+        content: `
+          <div class="space-y-3 font-mono">
+            <h3 class="text-sm font-bold text-amber-400 font-sans flex items-center gap-2">
+              <i class="fa-solid fa-cube text-cyan-400"></i> Elite Market Intelligence
+            </h3>
+            <p class="text-slate-300">Trade With Munaaf is an industry-leading community and quantitative research desk created for Indian retail traders navigating Nifty, BankNifty, and high-momentum stocks.</p>
+            <p class="text-slate-300">We utilize institutional order flow concepts, open-interest matrices, and algorithmic breakout triggers to share high-conviction educational trade analyses.</p>
+            <div class="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl text-amber-300 font-sans text-xs">
+              <i class="fa-solid fa-users text-amber-400 mr-1.5"></i> Over 100,000 traders rely on our daily morning levels & structural market updates.
+            </div>
+          </div>
+        `
+      },
+      terms: {
+        title: "// TERMS OF SERVICE",
+        content: `
+          <div class="space-y-3 font-mono">
+            <h3 class="text-sm font-bold text-white font-sans">User Code of Conduct & Terms</h3>
+            <p class="text-slate-300">By accessing this terminal or joining the official Telegram channel, you explicitly agree to the following conditions:</p>
+            <ul class="list-disc pl-5 space-y-1.5 text-slate-400 text-[11px]">
+              <li>All market intelligence, chart layouts, and commentary are distributed strictly for training and observational learning.</li>
+              <li>Past trade analysis accuracy does not guarantee identical future performance.</li>
+              <li>Market investments and option contracts carry intrinsic financial hazard. Trade sizing is entirely your responsibility.</li>
+              <li>Unauthorized reproduction, mirroring, or scraping of content is strictly barred.</li>
+            </ul>
+          </div>
+        `
+      },
+      disclaimer: {
+        title: "// MANDATORY REGULATORY DISCLAIMER",
+        content: `
+          <div class="space-y-3 font-mono">
+            <div class="p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-red-300 text-[11px] leading-relaxed">
+              <i class="fa-solid fa-triangle-exclamation text-red-400 mr-1"></i>
+              <strong>RISK WARNING:</strong> 9 out of 10 individual traders in equity futures and options incur net financial losses according to SEBI study data.
+            </div>
+            <p class="text-slate-300">Trade With Munaaf operates as a trader educational initiative. We are <strong>NOT a SEBI-registered portfolio manager or registered investment advisory service</strong>.</p>
+            <p class="text-slate-400">Please discuss your personal risk capacity and allocation with a SEBI-licensed financial advisor before undertaking live trading operations.</p>
+          </div>
+        `
+      },
+      contact: {
+        title: "// DIRECT SUPPORT & DESK",
+        content: `
+          <div class="space-y-3">
+            <h3 class="text-sm font-bold text-white font-sans">Connect With Desk Support</h3>
+            <p class="text-slate-400 text-[11px]">Need assistance with the VIP channel or community inquiries? Leave a message below or ping us on Telegram.</p>
+            <form onsubmit="handleContactSubmit(event)" class="space-y-2.5 font-sans">
+              <div>
+                <input type="text" placeholder="Your Full Name" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400" />
+              </div>
+              <div>
+                <input type="text" placeholder="Telegram @handle or WhatsApp number" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400" />
+              </div>
+              <div>
+                <textarea rows="3" placeholder="How can our analysis team support you?" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"></textarea>
+              </div>
+              <button type="submit" class="w-full bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-bold py-2.5 rounded-xl text-xs tracking-wider transition-all shadow-md">
+                DISPATCH INQUIRY
+              </button>
+            </form>
+          </div>
+        `
+      }
+    };
+
+    function openModal(key) {
+      const overlay = document.getElementById('modalOverlay');
+      const box = document.getElementById('modalBox');
+      const title = document.getElementById('modalTitle');
+      const body = document.getElementById('modalBody');
+
+      if (modalData[key]) {
+        title.innerHTML = modalData[key].title;
+        body.innerHTML = modalData[key].content;
+        
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+        box.classList.remove('scale-95');
+        box.classList.add('scale-100');
+
+        // Automatically pause countdown while reading policies
+        if (!isPaused && !isCancelled) {
+          toggleTimer();
+        }
+      }
+    }
+
+    function closeModal() {
+      const overlay = document.getElementById('modalOverlay');
+      const box = document.getElementById('modalBox');
+
+      overlay.classList.add('opacity-0', 'pointer-events-none');
+      box.classList.remove('scale-100');
+      box.classList.add('scale-95');
+    }
+
+    function closeModalOnOuterClick(e) {
+      if (e.target.id === 'modalOverlay') {
+        closeModal();
+      }
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const body = document.getElementById('modalBody');
+      body.innerHTML = `
+        <div class="text-center py-6">
+          <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-3">
+            <i class="fa-solid fa-check text-xl"></i>
+          </div>
+          <h4 class="text-sm font-bold text-white mb-1 font-sans">Inquiry Received</h4>
+          <p class="text-slate-400 text-xs">A community moderator will respond directly via Telegram.</p>
+        </div>
+      `;
+      setTimeout(closeModal, 2200);
+    }
+
+    /* ----------------------------------------------------
+       7. WINDOW ONLOAD INITIALIZER
+       ---------------------------------------------------- */
+    window.onload = function () {
+      renderTicker();
+      initMatrix();
+      animateCandlesticks();
+      startCountdown();
+    };
   </script>
 </body>
 </html>
